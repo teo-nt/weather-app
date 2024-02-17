@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/weather-forecast.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Weather Forecast</title>
+</head>
+<body class="bg-info-subtle">
+    <div class="container min-vh-100 d-flex flex-column align-items-center">
+        <h1 class="mb-3 text-center">Weather Forecast</h1>
+        <div class="d-flex justify-content-center align-items-center">
+            <form>
+                <input id="inputCity" type="text" class="rounded-pill px-3 fs-5 align-middle" placeholder="Insert a city">
+                <img id="loading" src="./img/waiting.gif" class="d-none align-middle" alt="loading gif">
+            </form>
+        </div>
+    </div>
+    
+    <div id="weather" class="mt-3 p-2 d-none text-center col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 bg-warning-subtle border border-danger-subtle rounded-3 mx-auto shadow">
+        <p class="h3">Current Weather</p>
+        <img id="weather-icon" src="" alt="weather status">
+        <span id="location"><strong></strong></span>
+        <p id="description"><span></span></p>
+        <p id="temperature">Temperature: <span></span><sup>o</sup>C</p>
+        <p id="feels-like">Feels like: <span></span><sup>o</sup>C</p>
+        <p id="humidity">Humidity: <span></span>%</p>
+    </div>
+
+    <div id="carousel" class="d-none carousel slide col-10 col-sm-10 col-md-9 col-lg-8 col-xl-7 pt-3 pb-5 my-5 text-center bg-primary-subtle border border-primary-subtle rounded-3 shadow">
+        <p class="h4">Forecast</p>
+        <div class="carousel-indicators">
+          
+        </div>
+        <div class="carousel-inner">
+          
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <button id="prototypeIndicator" class="d-none" type="button" data-bs-target="#carousel" data-bs-slide-to="0" aria-label="Slide"></button>
+    <div id="slide" class="carousel-item d-none">
+        <p id="datetime"></p>
+        <img id="weather-icon" src="" alt="weather status">
+        <p id="description"><span></span></p>
+        <p id="temperature">Temperature: <span></span><sup>o</sup>C</p>
+        <p id="humidity">Humidity: <span></span>%</p>
+    </div>
+    
+    <div id="error" class="d-none text-center mt-3 fs-4">
+        <span>The city was not found.</span>
+    </div>
+    <div id="unauthorized" class="d-none text-center mt-3 fs-4">
+        <span>You are unauthorized for this action. Please provide a valid API key.</span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
