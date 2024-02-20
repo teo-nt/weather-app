@@ -81,10 +81,12 @@ function handleResults(response) {
 function onCurrentWeather(response) {
     const $currentWeather = $('body > #weather').clone().removeClass('d-none')
     $currentWeather.find('#location strong').text((response.sys.country) ? response.name + ', ' + response.sys.country : response.name)
-    $currentWeather.find('#weather-icon').attr('src', `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`)
+    let iconName = response.weather[0].icon
+    changeBackgroundImage(iconName)
+    $currentWeather.find('#weather-icon').attr('src', `https://openweathermap.org/img/wn/${iconName}@2x.png`)
     $currentWeather.find('#description span').text(_.capitalize(response.weather[0].description))
-    $currentWeather.find('#temperature span').text(Math.round(response.main.temp))
-    $currentWeather.find('#feels-like span').text(Math.round(response.main.feels_like))
+    $currentWeather.find('#temperature span').prepend(Math.round(response.main.temp))
+    $currentWeather.find('#feels-like span').prepend(Math.round(response.main.feels_like))
     $currentWeather.find('#humidity span').text(response.main.humidity)
     $currentWeather.appendTo('.container')
 }
@@ -112,7 +114,7 @@ function onForecast(response) {
         $weatherSlide.find('#datetime').html(formattedDateTime)
         $weatherSlide.find('#weather-icon').attr('src', `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`)
         $weatherSlide.find('#description span').text(_.capitalize(forecast.weather[0].description))
-        $weatherSlide.find('#temperature span').text(Math.round(forecast.main.temp))
+        $weatherSlide.find('#temperature span').prepend(Math.round(forecast.main.temp))
         $weatherSlide.find('#humidity span').text(forecast.main.humidity)
 
         $forecastInfo.find('.carousel-indicators').append($indicator)
@@ -138,6 +140,18 @@ function getFormattedDateTime(datetime) {
 }
 
 /**
+ * Change the background image according to current weather status.
+ * 
+ * @param {*} iconName      the icon name from the API response that
+ *                          represents current weather status.
+ * @returns                 if icon name is not defined in the API response.
+ */
+function changeBackgroundImage(iconName) {
+    if (!iconName) return;
+    $('body').css('background-image', `url(./img/weather-status/${iconName}.jpg)`)
+}
+
+/**
  * Shows a UI element.
  * 
  * @param {*} element   the element to be diplayed.
@@ -156,11 +170,13 @@ function hideComponent(element) {
 }
 
 /**
- * Shows an error if city is not found.
+ * Shows an error if city is not found and removes
+ * the background image from previous search results.
  */
 function onApiError() {
     $('.container #error').remove()
     $('#error').clone().removeClass('d-none').appendTo('.container')
+    $('body').css('background-image', '')
 }
 
 /**
